@@ -3,11 +3,9 @@ package main
 import (
 	"net/http"
 	"html/template"
-	"fmt"
 ) 
 
 var tpl *template.Template
-
 
 func init(){
 	tpl = template.Must(template.ParseGlob("main.html"))
@@ -30,14 +28,13 @@ func processor(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	item := r.FormValue("submit_button")
+	item := r.FormValue("item")	
 
-	data := struct{
+	d := struct{
 		Item string
 	}{
 		Item: item,
 	}
-	
-	tpl.ExecuteTemplate(w, "main.html", data)
-	
+
+	tpl.ExecuteTemplate(w, "main.html", d)
 } 
