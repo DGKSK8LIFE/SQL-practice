@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">    
+    <title>User Input</title>
+</head>
+<style>
+h1 {
+    color: grey;
+    text-align: center;
+}
+
+form {
+    text-align: center;
+}
+
+</style>
+
+<body>
+<div class="container">
+   <h1>Add An Item To Your Shopping Cart</h1> 
+<form action="adding" method="POST">
+    Item:<br>
+    <input type="text"> 
+    <br>
+
+    <input id="submit_button" type="submit" value="Add" name="item">
+
+    
+</form>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+    document.getElementById('submit_button').onclick = function(){
+        alert(`You've added an item to your shopping list!`);
+    };
+
+</script>
+</body>
+</html>
