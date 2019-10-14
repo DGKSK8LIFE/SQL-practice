@@ -7,7 +7,8 @@ import (
 ) 
 
 var tpl *template.Template
-var data = make(chan string)
+
+
 func init(){
 	tpl = template.Must(template.ParseGlob("main.html"))
 }
@@ -36,7 +37,7 @@ func processor(w http.ResponseWriter, r *http.Request){
 	}{
 		Item: item,
 	}
-	fmt.Println(data)
+	
 	tpl.ExecuteTemplate(w, "main.html", data)
 	
 } 
