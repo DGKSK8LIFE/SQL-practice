@@ -29,7 +29,7 @@ func processor(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	item := r.FormValue("item")
+	item := r.FormValue("submit_button")
 
 	data := struct{
 		Item string
