@@ -22,21 +22,20 @@ form {
 <body>
 <div class="container">
    <h1>Add An Item To Your Shopping Cart</h1> 
-<form action="/adding" method="GET">
+<form action="adding" method="GET">
     Item:<br>
     <input type="text"> 
     <br>
 
-    <input type="submit" name="item" id="submit_button">
+    <input id="submit_button" type="submit" value="Add" name="item">
 
     
 </form>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script>
-    var addedItem = document.getElementById('submit_button').value;
     document.getElementById('submit_button').onclick = function(){
-        alert(`You've added ${addedItem} to your shopping list!`);
+        alert(`You've added an item to your shopping list!`);
     };
 </script>
 </body>
