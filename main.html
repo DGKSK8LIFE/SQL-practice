@@ -8,8 +8,12 @@
     <title>User Input</title>
 </head>
 <style>
+
+body {
+    background: lightblue; 
+}
 h1 {
-    color: grey;
+    color:  darkgreen;
     text-align: center;
 }
 
@@ -24,11 +28,10 @@ form {
    <h1>Add An Item To Your Shopping Cart</h1> 
 <form action="adding" method="GET">
     Item:<br>
-    <input type="text"> 
     <br>
 
-    <input id="submit_button" type="submit" value="Add" name="item">
-
+    <input id="text_box" type="text" name="item">
+    <input id="submit_button" type="submit" value="Submit">
     
 </form>
 </div>
