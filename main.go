@@ -47,8 +47,8 @@ func processor(w http.ResponseWriter, r *http.Request){
 	fmt.Println(item)
 
 	if len(db) == 0{
-		db.AutoMIgrate(&ShoppingCart{})
-		db.Create(&Product{Item: item})
+		db.AutoMigrate(&ShoppingCart{})
+		db.Create(&ShoppingCart{Item: item})
 	} else {
 		db.Model(&ShoppingCart{Item: item})
 	}
