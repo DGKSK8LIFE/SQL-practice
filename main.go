@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 	"html/template"
+	"fmt"
 ) 
 
 var tpl *template.Template
@@ -28,13 +29,15 @@ func processor(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	item := r.FormValue("item")	
+	item := r.FormValue("item")
 
-	d := struct{
+	instanceOfItem := struct {
 		Item string
 	}{
 		Item: item,
 	}
 
-	tpl.ExecuteTemplate(w, "main.html", d)
+	fmt.Println(instanceOfItem.Item)
+
+	tpl.ExecuteTemplate(w, "main.html", instanceOfItem)
 } 
