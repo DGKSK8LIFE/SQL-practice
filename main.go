@@ -31,13 +31,7 @@ func processor(w http.ResponseWriter, r *http.Request){
 
 	item := r.FormValue("item")
 
-	instanceOfItem := struct {
-		Item string
-	}{
-		Item: item,
-	}
+	fmt.Println(item)
 
-	fmt.Println(instanceOfItem.Item)
-
-	tpl.ExecuteTemplate(w, "main.html", instanceOfItem)
+	tpl.ExecuteTemplate(w, "main.html", item)
 } 
