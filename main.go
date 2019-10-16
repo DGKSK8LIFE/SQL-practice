@@ -36,7 +36,7 @@ func processor(w http.ResponseWriter, r *http.Request) {
 		panic("failed to connect to db")
 	}
 	defer db.Close()
-	if r.Method != "GET" {
+	if r.Method != "POST" {
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
 	}
