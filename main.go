@@ -63,7 +63,7 @@ func parseThenQuery(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
 	}
-
-		
+	searchedItem := r.FormValue("item")
+	//write code here to query the availableItems db and alert the user about searchItem's availability
 	tplTwo.ExecuteTemplate(w, "searchsite.html", nil)
 }
