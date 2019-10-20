@@ -54,5 +54,16 @@ func processor(w http.ResponseWriter, r *http.Request) {
 }
 
 func parseThenQuery(w http.ResponseWriter, r *http.Request) {
+	db, err := gorm.Open("sqlite3", "availableItems.sqlite")
+	if err != nil {
+		panic("failed to connect to db")
+	}
+	defer db.Close()
+	if r.Method != "POST" {
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return
+	}
+
+		
 	tplTwo.ExecuteTemplate(w, "searchsite.html", nil)
 }
