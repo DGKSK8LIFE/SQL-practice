@@ -34,7 +34,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 }
 
 func processor(w http.ResponseWriter, r *http.Request) {
-	db, err := gorm.Open("sqlite3", "storedata.db")
+	db, err := gorm.Open("sqlite3", "shoppinglist.sqlite")
 	if err != nil {
 		panic("failed to connect to db")
 	}
@@ -53,6 +53,6 @@ func processor(w http.ResponseWriter, r *http.Request) {
 	tpl.ExecuteTemplate(w, "main.html", item)
 }
 
-func parseThenQuery(w http.ResponseWriter, r *http.Request){
+func parseThenQuery(w http.ResponseWriter, r *http.Request) {
 	tplTwo.ExecuteTemplate(w, "searchsite.html", nil)
 }
