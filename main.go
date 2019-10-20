@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
 	"net/http"
 
@@ -15,14 +14,18 @@ type ShoppingCart struct {
 }
 
 var tpl *template.Template
+var tplTwo *template.Template
 
 func init() {
 	tpl = template.Must(template.ParseGlob("main.html"))
+	tplTwo = template.Must(template.ParseGlob("searchsite.html"))
 }
 
 func main() {
 	http.HandleFunc("/", index)
 	http.HandleFunc("/adding", processor)
+	http.HandleFunc("/adding/searchsite", parseThenQuery)
+	http.HandleFunc("/searchsite", parseThenQuery)
 	http.ListenAndServe(":8000", nil)
 }
 
@@ -43,11 +46,13 @@ func processor(w http.ResponseWriter, r *http.Request) {
 
 	item := r.FormValue("item")
 
-	fmt.Println(item)
-
 	db.AutoMigrate(&ShoppingCart{})
 	db.Create(&ShoppingCart{Item: item})
 	db.Model(&ShoppingCart{Item: item})
 
 	tpl.ExecuteTemplate(w, "main.html", item)
+}
+
+func parseThenQuery(w http.ResponseWriter, r *http.Request){
+	tplTwo.ExecuteTemplate(w, "searchsite.html", nil)
 }
