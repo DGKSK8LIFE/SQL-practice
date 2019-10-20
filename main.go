@@ -1,7 +1,6 @@
 package main
 
 import (
-	// "fmt"
 	"html/template"
 	"net/http"
 
@@ -55,19 +54,24 @@ func processor(w http.ResponseWriter, r *http.Request) {
 }
 
 func parseThenQuery(w http.ResponseWriter, r *http.Request) {
+	searchedItem := r.FormValue("item")
+	if RowExists(searchedItem) {
+		//alert('your item is in stock');
+	}
+	//alert('your item is not in stock');
+	tplTwo.ExecuteTemplate(w, "searchsite.html", nil)
+}
+
+func RowExists(row string) bool {
 	db, err := gorm.Open("sqlite3", "availableItems.sqlite")
 	if err != nil {
 		panic("failed to connect to db")
 	}
 	defer db.Close()
-	if r.Method != "POST" {
-		http.Redirect(w, r, "/", http.StatusSeeOther)
-		return
+	for rows := range db.Find(&itemsInStock) {
+		if row == rows {
+			return true
+		}
 	}
-	// searchedItem := r.FormValue("item")
-
-	// fmt.Println(db.Where("item = ?", searchedItem))
-
-	//write code here to query the availableItems db and alert the user about searchItem's availability
-	tplTwo.ExecuteTemplate(w, "searchsite.html", nil)
+	return false
 }
