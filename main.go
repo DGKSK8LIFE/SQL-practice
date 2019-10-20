@@ -13,8 +13,15 @@ type ShoppingCart struct {
 	Item string
 }
 
-var tpl *template.Template
-var tplTwo *template.Template
+type itemsInStock struct {
+	gorm.Model
+	Item string
+}
+
+var (
+	tpl    *template.Template
+	tplTwo *template.Template
+)
 
 func init() {
 	tpl = template.Must(template.ParseGlob("main.html"))
@@ -53,25 +60,17 @@ func processor(w http.ResponseWriter, r *http.Request) {
 	tpl.ExecuteTemplate(w, "main.html", item)
 }
 
+//commented-out code doesn't perform a desired task; leaving it for now
 func parseThenQuery(w http.ResponseWriter, r *http.Request) {
-	searchedItem := r.FormValue("item")
-	if RowExists(searchedItem) {
-		//alert('your item is in stock');
-	}
-	//alert('your item is not in stock');
-	tplTwo.ExecuteTemplate(w, "searchsite.html", nil)
-}
-
-func RowExists(row string) bool {
+	// var item itemsInStock
 	db, err := gorm.Open("sqlite3", "availableItems.sqlite")
 	if err != nil {
 		panic("failed to connect to db")
 	}
 	defer db.Close()
-	for rows := range db.Find(&itemsInStock) {
-		if row == rows {
-			return true
-		}
-	}
-	return false
+
+	searchedItem := r.FormValue("item")
+	// db.Find(&item, searchedItem)
+
+	tplTwo.ExecuteTemplate(w, "searchsite.html", nil)
 }
