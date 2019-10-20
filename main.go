@@ -1,6 +1,7 @@
 package main
 
 import (
+	// "fmt"
 	"html/template"
 	"net/http"
 
@@ -63,7 +64,10 @@ func parseThenQuery(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
 	}
-	searchedItem := r.FormValue("item")
+	// searchedItem := r.FormValue("item")
+
+	// fmt.Println(db.Where("item = ?", searchedItem))
+
 	//write code here to query the availableItems db and alert the user about searchItem's availability
 	tplTwo.ExecuteTemplate(w, "searchsite.html", nil)
 }
