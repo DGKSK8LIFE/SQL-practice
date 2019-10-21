@@ -13,11 +13,6 @@ type ShoppingCart struct {
 	Item string
 }
 
-type itemsInStock struct {
-	gorm.Model
-	Item string
-}
-
 var (
 	tpl    *template.Template
 	tplTwo *template.Template
