@@ -69,7 +69,7 @@ func parseThenQuery(w http.ResponseWriter, r *http.Request) {
 	}
 	defer db.Close()
 
-	searchedItem := r.FormValue("item")
+	// searchedItem := r.FormValue("item")
 	// db.Find(&item, searchedItem)
 
 	tplTwo.ExecuteTemplate(w, "searchsite.html", nil)
