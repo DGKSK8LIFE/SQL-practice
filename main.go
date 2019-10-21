@@ -62,5 +62,12 @@ func parseThenQuery(w http.ResponseWriter, r *http.Request) {
 		panic("failed to connect to db")
 	}
 	defer db.Close()
+<<<<<<< HEAD
+=======
+
+	// searchedItem := r.FormValue("item")
+	// db.Find(&item, searchedItem)
+
+>>>>>>> d84408ef6bf475ba4486974f51293c1a05a02238
 	tplTwo.ExecuteTemplate(w, "searchsite.html", nil)
 }
