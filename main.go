@@ -62,15 +62,10 @@ func processor(w http.ResponseWriter, r *http.Request) {
 
 //commented-out code doesn't perform a desired task; leaving it for now
 func parseThenQuery(w http.ResponseWriter, r *http.Request) {
-	// var item itemsInStock
 	db, err := gorm.Open("sqlite3", "availableItems.sqlite")
 	if err != nil {
 		panic("failed to connect to db")
 	}
 	defer db.Close()
-
-	// searchedItem := r.FormValue("item")
-	// db.Find(&item, searchedItem)
-
 	tplTwo.ExecuteTemplate(w, "searchsite.html", nil)
 }
