@@ -1,6 +1,8 @@
 package main
 
 import (
+	"database/sql"
+	"fmt"
 	"html/template"
 	"net/http"
 
@@ -55,19 +57,27 @@ func processor(w http.ResponseWriter, r *http.Request) {
 	tpl.ExecuteTemplate(w, "main.html", item)
 }
 
-//commented-out code doesn't perform a desired task; leaving it for now
 func parseThenQuery(w http.ResponseWriter, r *http.Request) {
-	db, err := gorm.Open("sqlite3", "availableItems.sqlite")
+	db, err := sql.Open("sqlite3", "availableItems.sqlite")
+	searchedItem := r.FormValue("item")
+	defer db.Close()
+
 	if err != nil {
 		panic("failed to connect to db")
+	} else {
+		rows, _ := db.Query("SELECT * FROM itemsInStock;")
+		var searched string
+		for rows.Next() {
+			err := rows.Scan(&searched)
+			if err != nil {
+				panic(err)
+			} else {
+				if searchedItem == searched {
+					fmt.Fprintf(w, "%s is in stock", searched)
+				}
+			}
+
+		}
 	}
-	defer db.Close()
-<<<<<<< HEAD
-=======
-
-	// searchedItem := r.FormValue("item")
-	// db.Find(&item, searchedItem)
-
->>>>>>> d84408ef6bf475ba4486974f51293c1a05a02238
 	tplTwo.ExecuteTemplate(w, "searchsite.html", nil)
 }
