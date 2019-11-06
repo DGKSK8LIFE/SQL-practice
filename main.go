@@ -59,25 +59,20 @@ func processor(w http.ResponseWriter, r *http.Request) {
 
 func parseThenQuery(w http.ResponseWriter, r *http.Request) {
 	db, err := sql.Open("sqlite3", "availableItems.sqlite")
-	searchedItem := r.FormValue("item")
-	defer db.Close()
-
 	if err != nil {
 		panic("failed to connect to db")
-	} else {
-		rows, _ := db.Query("SELECT * FROM itemsInStock;")
-		var searched string
-		for rows.Next() {
-			err := rows.Scan(&searched)
-			if err != nil {
-				panic(err)
-			} else {
-				if searchedItem == searched {
-					fmt.Fprintf(w, "%s is in stock", searched)
-				}
-			}
+	}
+	searchedItem := r.FormValue("item")
+	defer db.Close()
+	tplTwo.ExecuteTemplate(w, "searchsite.html", nil)
 
+	rows, _ := db.Query("SELECT * FROM itemsInStock;")
+	var searched string
+	for rows.Next() {
+		rows.Scan(&searched)
+		if searchedItem == searched {
+			fmt.Printf("%s is in stock", searched)
+			break
 		}
 	}
-	tplTwo.ExecuteTemplate(w, "searchsite.html", nil)
 }
